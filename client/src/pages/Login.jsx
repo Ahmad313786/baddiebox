@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle, FaFacebookF } from "react-icons/fa";
 import axios from "axios";
+import { shopContext } from "../context/ShopContext";
 
 const Login = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+    const { backendURL } = useContext(shopContext);
+  
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -19,7 +22,7 @@ const Login = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:3000/api/user/login", form);
+      const res = await axios.post(`${backendURL}/api/user/login`, form);
 
       if (res.data.success) {
         // ✅ Save token & user info in localStorage

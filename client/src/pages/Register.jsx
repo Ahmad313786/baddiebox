@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { shopContext } from "../context/ShopContext";
+
 
 const Register = () => {
   const navigate = useNavigate();
+      const { backendURL } = useContext(shopContext);
+  
   const [step, setStep] = useState(1); // 1 = email, 2 = otp, 3 = full form
   const [form, setForm] = useState({
     name: "",
@@ -13,7 +17,7 @@ const Register = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const backendUrl = "http://localhost:3000/api/user";
+  const backendUrl = backendURL;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
