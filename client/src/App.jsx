@@ -5,11 +5,11 @@ import Contact from "./pages/Contact";
 import Collection from "./pages/Collection";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Navbar from "./components/navbar";
+import Navbar from "./components/Navbar";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import MyOrders from "./pages/MyOrders";
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 import { ToastContainer } from "react-toastify";
 function App() {
   return (
