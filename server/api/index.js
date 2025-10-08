@@ -13,31 +13,25 @@ import otpRoutes from "../routes/otpRoute.js";
 
 const app = express();
 
-// 🔧 Middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// 🧠 Connect services (run once)
+// Connect once (safe for Vercel cold starts)
 connectCloudinary();
 connectDB();
 
-// ✅ Root test route — so /api shows something
+// Test route
 app.get("/", (req, res) => {
-  res.status(200).send("✅ API is working! 🚀");
+  res.send("✅ API is working!");
 });
 
-// ✅ Route mappings
+// Routers
 app.use("/user", userRouter);
 app.use("/product", productRouter);
 app.use("/cart", cartRouter);
 app.use("/order", orderRouter);
 app.use("/admin", adminRouter);
-app.use("/user", otpRoutes); // optional if OTP routes are separate
+app.use("/otp", otpRoutes);
 
-// 🧩 Health check endpoint (optional for uptime monitoring)
-app.get("/health", (req, res) => {
-  res.json({ status: "ok", time: new Date().toISOString() });
-});
-
-// ✅ Export for Vercel serverless function
 export default app;
