@@ -29,7 +29,7 @@ const Register = () => {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.post(`${backendUrl}/send-otp`, { email: form.email });
+      const res = await axios.post(`${backendUrl}/sendotp`, { email: form.email });
       if (res.data.success) {
         alert("OTP sent to your email!");
         setStep(2);
@@ -49,7 +49,7 @@ const Register = () => {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.post(`${backendUrl}/verify-otp`, { email: form.email, otp: form.otp });
+      const res = await axios.post(`${backendUrl}/verifyotp`, { email: form.email, otp: form.otp });
       if (res.data.success) {
         alert("OTP verified successfully!");
         setStep(3);
