@@ -1,12 +1,12 @@
-import React, { useState,useContext } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { shopContext } from "../context/ShopContext";
 
 
 const Register = () => {
   const navigate = useNavigate();
-      const { backendURL } = useContext(shopContext);
+        const backendURL = import.meta.env.VITE_BACKEND_URL;
+
   
   const [step, setStep] = useState(1); // 1 = email, 2 = otp, 3 = full form
   const [form, setForm] = useState({
