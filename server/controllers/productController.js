@@ -1,46 +1,41 @@
 import { v2 as cloudinary } from "cloudinary";
 import productModel from "../models/productModel.js";
 
-// ✅ ADD PRODUCT
 const addProduct = async (req, res) => {
   try {
     const { name, description, price, quantity } = req.body;
 
-    // multer single file
-    const imageFile = req.file;
-
-    if (!imageFile) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Image is required" });
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: "Image is required",
+      });
     }
 
-    // upload image to cloudinary
-    const uploadedImage = await cloudinary.uploader.upload(imageFile.path, {
-      resource_type: "image",
-    });
+    // ✅ Multer-Cloudinary automatically uploads and returns file info
+    const imageUrl = req.file.path; // secure URL from Cloudinary
 
     const newProduct = new productModel({
       name,
       description,
       price: Number(price),
       quantity: Number(quantity),
-      images: uploadedImage.secure_url,
+      images: imageUrl,
     });
 
     await newProduct.save();
-    res
-      .status(201)
-      .json({
-        success: true,
-        message: "Product added successfully",
-        product: newProduct,
-      });
+
+    res.status(201).json({
+      success: true,
+      message: "Product added successfully",
+      product: newProduct,
+    });
   } catch (error) {
     console.error("Error adding product:", error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
 
 // ✅ LIST PRODUCTS
 const listProducts = async (req, res) => {
