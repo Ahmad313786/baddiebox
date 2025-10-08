@@ -18,8 +18,10 @@ app.use(express.json());
 connectCloudinary();
 connectDB();
 
-app.get("/", (req, res) => res.send("✅ Serverless API is live!"));
+// Health check route
+app.get("/", (req, res) => res.send("✅ API is working on Vercel!"));
 
+// Routes
 app.use("/user", userRouter);
 app.use("/product", productRouter);
 app.use("/cart", cartRouter);
@@ -27,6 +29,4 @@ app.use("/order", orderRouter);
 app.use("/admin", adminRouter);
 app.use("/otp", otpRoutes);
 
-// ❌ REMOVE app.listen()
-// ✅ just export app
 export default app;
